@@ -134,7 +134,33 @@ export const EventCalendar = () => {
     
     // const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
     return (
-        <div>
-        <Calendar localizer={localizer}/>
-      </div>
+        <Box
+        mt={2}
+        mb={2}
+        component="main"
+        sx={{
+            flexGrow:1,
+            py:8
+        }}>
+        <Container maxWidth={false}>
+            <Card>
+                <CardHeader title="Calendar" subheader="Create Events and Todos and manage them easily"/>
+                <Divider />
+                <CardContent>
+                    <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                        <ButtonGroup size="large" variant="contained" aria-label="outlined primary button group">
+                            <Button size="small" variant="contained">
+                                Add event
+                            </Button>
+                            <Button size="small" variant="contained">
+                                Create todo
+                            </Button>
+                        </ButtonGroup>
+                    </Box>
+                    <Divider style={{margin: 10}} />
+                    <Calendar localizer={localizer}/>
+                </CardContent>
+            </Card>
+        </Container>
+      </Box>
   )}
