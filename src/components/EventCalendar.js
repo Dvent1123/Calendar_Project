@@ -16,7 +16,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 // import AddEventModal from "./AddEventModal"
 // import EventInfoModal from "./EventInfoModal"
 // import { AddTodoModal } from "./AddTodoModal"
-// import AddDatePickerEventModal from "./AddDatePickerEventModal"
+import {AddDatePickerEventModal} from "./AddDatePickerEventModal"
 
 const locales = {
     "en-US": enUS
@@ -31,20 +31,20 @@ const localizer = dateFnsLocalizer({
 })
 
   
-// export const generateID = () => (Math.floor(Math.random() * 1000) + 1).toString()
+export const generateID = () => (Math.floor(Math.random() * 1000) + 1).toString()
 
 // const EventFormData = {
 //     description: "",
 //     todoID: undefined,
 // }
 
-// const initialDatePickerEventFormData = {
-//     description: "",
-//     todoId: undefined,
-//     allDay: false,
-//     start: undefined,
-//     end: undefined,
-//   }
+const initialDatePickerEventFormData = {
+    description: "",
+    todoId: undefined,
+    allDay: false,
+    start: undefined,
+    end: undefined,
+  }
 
 
 
@@ -55,20 +55,14 @@ const localizer = dateFnsLocalizer({
 // }
 
 
-// const handleSelectEvent = (event) => {
-//     setCurrentEvent(event)
-//     setEventInfoModal(true)
-//   }
+
 
 //   const handleClose = () => {
 //     setEventFormData(initialEventFormState)
 //     setOpenSlot(false)
 //   }
 
-//   const handleDatePickerClose = () => {
-//     setDatePickerEventFormData(initialDatePickerEventFormData)
-//     setOpenDatepickerModal(false)
-//   }
+
 
 //   const onAddEvent = (e) => {
 //     e.preventDefault()
@@ -86,18 +80,7 @@ const localizer = dateFnsLocalizer({
 //     handleClose()
 //   }
 
-//   const onAddEventFromDatePicker = (e) => {
-//     e.preventDefault()
 
-//     const addHours = (date) => {
-//       return date ? date.setHours(date.getHours() + hours) : undefined
-//     }
-
-//     const setMinToZero = (date) => {
-//       date.setSeconds(0)
-
-//       return date
-//     }
 
 //     const data = {
 //       ...datePickerEventFormData,
@@ -121,18 +104,61 @@ const localizer = dateFnsLocalizer({
 
 export const EventCalendar = () => {
     // const [openSlot, setOpenSlot] = useState(false)
-    // const [openDatepickerModal, setOpenDatePickerModal] = useState(false)
+    const [openDatepickerModal, setOpenDatepickerModal] = useState(false)
     // const [openTodoModal, setOpenTodoModal] = useState(false)
-    // const [currentEvent, setCurrentEvent] = useState(null)
+    const [currentEvent, setCurrentEvent] = useState({
+        _id: null,
+        description: "",
+        todoId: undefined
+    })
     
-    // const [eventInfoModal, setEventInfoModal] = useState(false)
+    const [eventInfoModal, setEventInfoModal] = useState(false)
     
-    // const [events, setEvents] = useState([])
-    // const [todos, setTodos] = useState([])
+    const [events, setEvents] = useState([])
+    const [todos, setTodos] = useState([])
     
     // const [eventFormData, setEventFormData] = useState(initialEventFormState)
     
-    // const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
+    const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
+
+    const handleSelectEvent = (event) => {
+        setCurrentEvent(event)
+        setEventInfoModal(true)
+      }
+
+      const handleDatePickerClose = () => {
+        setDatePickerEventFormData(initialDatePickerEventFormData)
+        setOpenDatepickerModal(false)
+      }
+
+      const onAddEventFromDatePicker = (e) => {
+            e.preventDefault()
+
+            const addHours = (date, hours) => {
+            return date ? date.setHours(date.getHours() + hours) : undefined
+            }
+
+            const setMinToZero = (date) => {
+            date.setSeconds(0)
+
+            return date
+            }
+
+            const data = {
+            ...datePickerEventFormData,
+            _id: generateID(),
+            start: setMinToZero(datePickerEventFormData.start),
+            end: datePickerEventFormData.allDay
+                ? addHours(datePickerEventFormData.start, 12)
+                : setMinToZero(datePickerEventFormData.end),
+            }
+        
+            const newEvents = [...events, data]
+        
+            setEvents(newEvents)
+            setDatePickerEventFormData(initialDatePickerEventFormData)
+        }
+
     return (
         <Box
         mt={2}
@@ -149,7 +175,7 @@ export const EventCalendar = () => {
                 <CardContent>
                     <Box sx={{display: "flex", justifyContent: "space-between"}}>
                         <ButtonGroup size="large" variant="contained" aria-label="outlined primary button group">
-                            <Button size="small" variant="contained">
+                            <Button onClick={() => setOpenDatepickerModal(true)} size="small" variant="contained">
                                 Add event
                             </Button>
                             <Button size="small" variant="contained">
@@ -157,8 +183,26 @@ export const EventCalendar = () => {
                             </Button>
                         </ButtonGroup>
                     </Box>
+                    <AddDatePickerEventModal
+                    open={openDatepickerModal}
+                    handleClose={handleDatePickerClose}
+                    datePickerEventFormData={datePickerEventFormData}
+                    setDatePickerEventFormData={setDatePickerEventFormData}
+                    onAddEvent={onAddEventFromDatePicker}
+                    todos={todos}
+                    />
+                    {/* <EventInfoModal
+                    open={eventInfoModal}
+                    handleClose={() => setEventInfoModal(false)}
+                    //onDeleteEvent={onDeleteEvent}
+                    currentEvent={currentEvent}
+                    /> */}
                     <Divider style={{margin: 10}} />
-                    <Calendar localizer={localizer}/>
+                    <Calendar 
+                    localizer={localizer}
+                    events={events}
+                    onSelectEvent={handleSelectEvent}
+                    />
                 </CardContent>
             </Card>
         </Container>
