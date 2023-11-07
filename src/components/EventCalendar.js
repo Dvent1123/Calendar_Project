@@ -33,10 +33,10 @@ const localizer = dateFnsLocalizer({
   
 export const generateID = () => (Math.floor(Math.random() * 1000) + 1).toString()
 
-// const EventFormData = {
-//     description: "",
-//     todoID: undefined,
-// }
+const initialEventFormState = {
+    description: "",
+    todoId: undefined,
+  }
 
 const initialDatePickerEventFormData = {
     description: "",
@@ -57,10 +57,7 @@ const initialDatePickerEventFormData = {
 
 
 
-//   const handleClose = () => {
-//     setEventFormData(initialEventFormState)
-//     setOpenSlot(false)
-//   }
+
 
 
 
@@ -103,7 +100,7 @@ const initialDatePickerEventFormData = {
 //   }
 
 export const EventCalendar = () => {
-    // const [openSlot, setOpenSlot] = useState(false)
+    const [openSlot, setOpenSlot] = useState(false)
     const [openDatepickerModal, setOpenDatepickerModal] = useState(false)
     // const [openTodoModal, setOpenTodoModal] = useState(false)
     const [currentEvent, setCurrentEvent] = useState({
@@ -117,9 +114,14 @@ export const EventCalendar = () => {
     const [events, setEvents] = useState([])
     const [todos, setTodos] = useState([])
     
-    // const [eventFormData, setEventFormData] = useState(initialEventFormState)
+    const [eventFormData, setEventFormData] = useState(initialEventFormState)
     
     const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
+
+    const handleClose = () => {
+        setEventFormData(initialEventFormState)
+        setOpenSlot(false)
+    }
 
     const handleSelectEvent = (event) => {
         setCurrentEvent(event)
@@ -187,9 +189,9 @@ export const EventCalendar = () => {
                     open={openDatepickerModal}
                     handleClose={handleDatePickerClose}
                     datePickerEventFormData={datePickerEventFormData}
-                    setDatePickerEventFormData={setDatePickerEventFormData}
-                    onAddEvent={onAddEventFromDatePicker}
-                    todos={todos}
+                    //setDatePickerEventFormData={setDatePickerEventFormData}
+                    //onAddEvent={onAddEventFromDatePicker}
+                    // todos={todos}
                     />
                     {/* <EventInfoModal
                     open={eventInfoModal}

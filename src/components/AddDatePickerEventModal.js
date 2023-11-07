@@ -1,14 +1,108 @@
-import React, { Dispatch, MouseEvent, SetStateAction, ChangeEvent } from "react"
+import React, { Dispatch, MouseEvent, SetStateAction, ChangeEvent, useState } from "react"
 import {
-  Dialog
-} from "@mui/material"
-// import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers"
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
+    TextField,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Button,
+    Autocomplete,
+    Box,
+    Checkbox,
+    Typography,
+    List,
+    Divider
+  } from "@mui/material"
+import { HexColorPicker } from "react-colorful"
+import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers"
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 // import { DatePickerEventFormData, ITodo } from "./EventCalendar"
 
-export const AddDatePickerEventModal = ({open}) => {
+export const AddDatePickerEventModal = ({open, 
+    handleClose,
+    datePickerEventFormData,
+    setDatePickerEventFormData,
+}) => {
+    const {description, start, end, allDay} = datePickerEventFormData
+
+    const onClose = () => {
+        handleClose()
+    }
+
+    const isDisabled = () => {
+        const checkend = () => {
+          if (!allDay && end === null) {
+            return true
+          }
+        }
+        if (description === "" || start === null || checkend()) {
+          return true
+        }
+        return false
+      }
+
     return (
-        <Dialog open={open}>
+        <Dialog open={open} onClose={onClose}>
+        <DialogTitle>Add event</DialogTitle>
+        <DialogContent>
+            <DialogContentText>To add a event, please fill in the information below.</DialogContentText>
+            <Box component="form">
+            <TextField
+                name="description"
+                value={description}
+                margin="dense"
+                id="description"
+                label="Description"
+                type="text"
+                fullWidth
+                variant="outlined"
+            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Box mb={2} mt={5}>
+                <DateTimePicker
+                    label="Start date"
+                    value={start}
+                    ampm={true}
+                    minutesStep={30}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+                </Box>
+
+                {/* <Box>
+                <Typography variant="caption" color="text" component={"span"}>
+                    All day?
+                </Typography>
+                <Checkbox value={allDay} />
+                </Box>
+
+                <DateTimePicker
+                label="End date"
+                disabled={allDay}
+                minDate={start}
+                minutesStep={30}
+                ampm={true}
+                value={allDay ? null : end}
+                renderInput={(params) => <TextField {...params} />}
+                /> */}
+            </LocalizationProvider>
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                sx={{ marginTop: 4 }}
+                getOptionLabel={(option) => option.title}
+                renderInput={(params) => <TextField {...params} label="Todo" />}
+            />
+            </Box>
+        </DialogContent>
+        <DialogActions>
+            <Button color="error" onClick={onClose}>
+            Cancel
+            </Button>
+            <Button disabled={isDisabled()} color="success">
+            Add
+            </Button>
+        </DialogActions>
         </Dialog>
     )
 }
