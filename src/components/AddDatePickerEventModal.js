@@ -30,6 +30,14 @@ export const AddDatePickerEventModal = ({open,
         handleClose()
     }
 
+    const onChange = (event) => {
+        setDatePickerEventFormData((prevState) => ({
+          ...prevState,
+          [event.target.name]: event.target.value,
+        }))
+      }
+    
+
     const isDisabled = () => {
         const checkend = () => {
           if (!allDay && end === null) {
@@ -57,6 +65,7 @@ export const AddDatePickerEventModal = ({open,
                 type="text"
                 fullWidth
                 variant="outlined"
+                onChange={onChange}
             />
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Box mb={2} mt={5}>

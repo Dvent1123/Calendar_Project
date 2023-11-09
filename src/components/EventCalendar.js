@@ -189,7 +189,7 @@ export const EventCalendar = () => {
                     open={openDatepickerModal}
                     handleClose={handleDatePickerClose}
                     datePickerEventFormData={datePickerEventFormData}
-                    //setDatePickerEventFormData={setDatePickerEventFormData}
+                    setDatePickerEventFormData={setDatePickerEventFormData}
                     //onAddEvent={onAddEventFromDatePicker}
                     // todos={todos}
                     />
