@@ -128,6 +128,11 @@ export const EventCalendar = () => {
         setEventInfoModal(true)
       }
 
+      const handleSelectSlot = (event) => {
+        setOpenSlot(true)
+        setCurrentEvent(event)
+      }
+
       const handleDatePickerClose = () => {
         setDatePickerEventFormData(initialDatePickerEventFormData)
         setOpenDatepickerModal(false)
@@ -204,6 +209,11 @@ export const EventCalendar = () => {
                     localizer={localizer}
                     events={events}
                     onSelectEvent={handleSelectEvent}
+                    onSelectSlot={handleSelectSlot}
+                    selectable
+                    startAccessor="start"
+                    endAccessor="end"
+                    defaultView="week"
                     />
                 </CardContent>
             </Card>
