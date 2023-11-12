@@ -17,12 +17,15 @@ import {
 import { HexColorPicker } from "react-colorful"
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
-// import { DatePickerEventFormData, ITodo } from "./EventCalendar"
+import { DatePickerEventFormData, ITodo } from "./EventCalendar"
 
 export const AddDatePickerEventModal = ({open, 
     handleClose,
     datePickerEventFormData,
     setDatePickerEventFormData,
+    datePickerEventFormData: DatePickerEventFormData,
+    onAddEvent,
+    todos
 }) => {
     const {description, start, end, allDay} = datePickerEventFormData
 
@@ -36,7 +39,20 @@ export const AddDatePickerEventModal = ({open,
           [event.target.name]: event.target.value,
         }))
       }
+
+    const handleCheckboxChange = (event) => {
+        setDatePickerEventFormData((prevState)=> ({
+            ...prevState,
+            allDay: event.target.checked
+        }))
+    }
     
+    const handleTodoChange = (value) => {
+        setDatePickerEventFormData((prevState) => ({
+          ...prevState,
+          todoId: value?._id,
+        }))
+      }
 
     const isDisabled = () => {
         const checkend = () => {
@@ -84,7 +100,7 @@ export const AddDatePickerEventModal = ({open,
                 />
                 </Box>
 
-                {/* <Box>
+                <Box>
                 <Typography variant="caption" color="text" component={"span"}>
                     All day?
                 </Typography>
@@ -98,12 +114,20 @@ export const AddDatePickerEventModal = ({open,
                 minutesStep={30}
                 ampm={true}
                 value={allDay ? null : end}
+                onChange={(newValue) =>
+                    setDatePickerEventFormData((prevState) => ({
+                      ...prevState,
+                      end: new Date(newValue)
+                    }))
+                }
                 renderInput={(params) => <TextField {...params} />}
-                /> */}
+                />
             </LocalizationProvider>
             <Autocomplete
+                onChange={handleTodoChange}
                 disablePortal
                 id="combo-box-demo"
+                options={todos}
                 sx={{ marginTop: 4 }}
                 getOptionLabel={(option) => option.title}
                 renderInput={(params) => <TextField {...params} label="Todo" />}
@@ -114,7 +138,7 @@ export const AddDatePickerEventModal = ({open,
             <Button color="error" onClick={onClose}>
             Cancel
             </Button>
-            <Button disabled={isDisabled()} color="success">
+            <Button disabled={isDisabled()} color="success" onClick={onAddEvent}>
             Add
             </Button>
         </DialogActions>

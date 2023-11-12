@@ -14,7 +14,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 
 // import EventInfo from "./EventInfo"
 // import AddEventModal from "./AddEventModal"
-// import EventInfoModal from "./EventInfoModal"
+import EventInfoModal from "./EventInfoModal"
 // import { AddTodoModal } from "./AddTodoModal"
 import {AddDatePickerEventModal} from "./AddDatePickerEventModal"
 
@@ -118,6 +118,11 @@ export const EventCalendar = () => {
     
     const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
 
+    const onDeleteEvent = () => {
+        setEvents(() => [...events].filter((e) => e._id !== currentEvent._id))
+        setEventInfoModal(false)
+    }
+
     const handleClose = () => {
         setEventFormData(initialEventFormState)
         setOpenSlot(false)
@@ -195,15 +200,15 @@ export const EventCalendar = () => {
                     handleClose={handleDatePickerClose}
                     datePickerEventFormData={datePickerEventFormData}
                     setDatePickerEventFormData={setDatePickerEventFormData}
-                    //onAddEvent={onAddEventFromDatePicker}
-                    // todos={todos}
+                    onAddEvent={onAddEventFromDatePicker}
+                    todos={todos}
                     />
-                    {/* <EventInfoModal
+                    <EventInfoModal
                     open={eventInfoModal}
                     handleClose={() => setEventInfoModal(false)}
-                    //onDeleteEvent={onDeleteEvent}
+                    onDeleteEvent={onDeleteEvent}
                     currentEvent={currentEvent}
-                    /> */}
+                    />
                     <Divider style={{margin: 10}} />
                     <Calendar 
                     localizer={localizer}
