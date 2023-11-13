@@ -1,4 +1,4 @@
-import React, { Dispatch, MouseEvent, SetStateAction, ChangeEvent, useState } from "react"
+import React from "react"
 import {
     TextField,
     Dialog,
@@ -10,20 +10,15 @@ import {
     Autocomplete,
     Box,
     Checkbox,
-    Typography,
-    List,
-    Divider
+    Typography
   } from "@mui/material"
-import { HexColorPicker } from "react-colorful"
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
-import { DatePickerEventFormData, ITodo } from "./EventCalendar"
 
 export const AddDatePickerEventModal = ({open, 
     handleClose,
     datePickerEventFormData,
     setDatePickerEventFormData,
-    datePickerEventFormData: DatePickerEventFormData,
     onAddEvent,
     todos
 }) => {
@@ -104,7 +99,7 @@ export const AddDatePickerEventModal = ({open,
                 <Typography variant="caption" color="text" component={"span"}>
                     All day?
                 </Typography>
-                <Checkbox value={allDay} />
+                <Checkbox onChange={handleCheckboxChange} value={allDay} />
                 </Box>
 
                 <DateTimePicker
