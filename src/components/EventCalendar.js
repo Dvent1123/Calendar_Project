@@ -46,62 +46,12 @@ const initialDatePickerEventFormData = {
   }
 
 
-
-
-// const handleSelectSlot = (event) => {
-//     setOpenSlot(true)
-//     setCurrentEvent(event)
-// }
-
-
-
-
-
-
-
-
-//   const onAddEvent = (e) => {
-//     e.preventDefault()
-
-//     const data = {
-//       ...eventFormData,
-//       _id: generateId(),
-//       start: currentEvent?.start,
-//       end: currentEvent?.end,
-//     }
-
-//     const newEvents = [...events, data]
-
-//     setEvents(newEvents)
-//     handleClose()
-//   }
-
-
-
-//     const data = {
-//       ...datePickerEventFormData,
-//       _id: generateId(),
-//       start: setMinToZero(datePickerEventFormData.start),
-//       end: datePickerEventFormData.allDay
-//         ? addHours(datePickerEventFormData.start, 12)
-//         : setMinToZero(datePickerEventFormData.end),
-//     }
-
-//     const newEvents = [...events, data]
-
-//     setEvents(newEvents)
-//     setDatePickerEventFormData(initialDatePickerEventFormData)
-//   }
-
-//   const onDeleteEvent = () => {
-//     setEvents(() => [...events].filter((e) => e._id !== (currentEvent)._id!))
-//     setEventInfoModal(false)
-//   }
-
 export const EventCalendar = () => {
     const [openSlot, setOpenSlot] = useState(false)
     const [openDatepickerModal, setOpenDatepickerModal] = useState(false)
     const [openTodoModal, setOpenTodoModal] = useState(false)
+    const [openFindSlot, setOpenFindSlot] = useState(false)
+
     const [currentEvent, setCurrentEvent] = useState({
         _id: null,
         description: "",
@@ -150,9 +100,9 @@ export const EventCalendar = () => {
             }
 
             const setMinToZero = (date) => {
-            date.setSeconds(0)
+                date.setSeconds(0)
 
-            return date
+                return date
             }
 
             const data = {
@@ -207,6 +157,9 @@ export const EventCalendar = () => {
                             </Button>
                             <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained">
                                 Create todo
+                            </Button>
+                            <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained">
+                                Find Open Slot
                             </Button>
                         </ButtonGroup>
                     </Box>
