@@ -14,6 +14,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css"
 import EventInfo from "./EventInfo"
 import AddEventModal from "./AddEventModal"
 import EventInfoModal from "./EventInfoModal"
+import { FindSlotModal } from "./FindSlotModal"
 import { AddTodoModal } from "./AddTodoModal"
 import {AddDatePickerEventModal} from "./AddDatePickerEventModal"
 
@@ -51,6 +52,7 @@ export const EventCalendar = () => {
     const [openDatepickerModal, setOpenDatepickerModal] = useState(false)
     const [openTodoModal, setOpenTodoModal] = useState(false)
     const [openFindSlot, setOpenFindSlot] = useState(false)
+    const [amountOfHours, setAmountOfHours] = useState(1)
 
     const [currentEvent, setCurrentEvent] = useState({
         _id: null,
@@ -158,7 +160,7 @@ export const EventCalendar = () => {
                             <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained">
                                 Create todo
                             </Button>
-                            <Button onClick={() => setOpenTodoModal(true)} size="small" variant="contained">
+                            <Button onClick={() => setOpenFindSlot(true)} size="small" variant="contained">
                                 Find Open Slot
                             </Button>
                         </ButtonGroup>
@@ -190,6 +192,11 @@ export const EventCalendar = () => {
                         handleClose={() => setOpenTodoModal(false)}
                         todos={todos}
                         setTodos={setTodos}
+                    />
+                    <FindSlotModal 
+                    amountOfHours={amountOfHours}
+                    open={openFindSlot}
+                    handleClose={() => setOpenFindSlot(false)}
                     />
                     <Divider style={{margin: 10}} />
                     <Calendar 
