@@ -1,6 +1,7 @@
-import { useState } from "react"
-import { Box, Dialog, DialogTitle, DialogContent, Select, MenuItem, DialogContentText } from "@mui/material"
-
+import { TextField, Box, Dialog, DialogTitle, DialogContent, Select, MenuItem, DialogContentText } from "@mui/material"
+import { LocalizationProvider } from "@mui/x-date-pickers"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 export const FindSlotModal =  ({open, onClose, amountOfHours}) => {
     return(
@@ -28,6 +29,14 @@ export const FindSlotModal =  ({open, onClose, amountOfHours}) => {
                         <MenuItem value={11}>11</MenuItem>
                         <MenuItem value={12}>12</MenuItem>
                     </Select>
+                </Box>
+                <Box component="form">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                            renderInput={(params) => <TextField {...params} />}
+                            label="Controlled picker"
+                            />
+                    </LocalizationProvider>
                 </Box>
             </DialogContent>
         </Dialog>
