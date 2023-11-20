@@ -86,10 +86,14 @@ export const AddDatePickerEventModal = ({open,
                     ampm={true}
                     minutesStep={30}
                     onChange={(newValue) =>
-                        setDatePickerEventFormData((prevState) => ({
+                      {
+                        console.log(newValue)
+                        setDatePickerEventFormData((prevState) => (
+                          {
                             ...prevState,
                             start: new Date(newValue)
                         }))
+                      }
                     }
                     renderInput={(params) => <TextField {...params} />}
                 />

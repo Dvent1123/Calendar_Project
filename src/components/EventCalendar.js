@@ -46,6 +46,16 @@ const initialDatePickerEventFormData = {
     end: undefined,
   }
 
+  const testData = [
+    {
+        description: "Test1",
+        todoId: generateID(),
+        allDay: false,
+        start: new Date("November 19, 2023 11:13:00"),
+        end: new Date("November 23, 2023 11:13:00")
+    }
+  ]
+
 
 export const EventCalendar = () => {
     const [openSlot, setOpenSlot] = useState(false)
@@ -62,7 +72,7 @@ export const EventCalendar = () => {
     
     const [eventInfoModal, setEventInfoModal] = useState(false)
     
-    const [events, setEvents] = useState([])
+    const [events, setEvents] = useState(testData)
     const [todos, setTodos] = useState([])
     
     const [eventFormData, setEventFormData] = useState(initialEventFormState)
