@@ -3,7 +3,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export const FindSlotModal =  ({open, onClose, amountOfHours}) => {
+export const FindSlotModal =  ({open, onClose, amountOfHours, setAmountOfHours, hoursToCompare, setHoursToCompare}) => {
     return(
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Find an Open Time</DialogTitle>
@@ -15,6 +15,10 @@ export const FindSlotModal =  ({open, onClose, amountOfHours}) => {
                         id="simple-select"
                         value={amountOfHours}
                         label="Hours"
+                        onChange = {(e) => {
+                            console.log("Hours: " + e.target.value)
+                            setAmountOfHours(e.target.value)
+                        }}
                     >
                         <MenuItem value={1}>1</MenuItem>
                         <MenuItem value={2}>2</MenuItem>
@@ -33,8 +37,17 @@ export const FindSlotModal =  ({open, onClose, amountOfHours}) => {
                 <Box component="form">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                            renderInput={(params) => <TextField {...params} />}
-                            label="Controlled picker"
+                                label="Time Slot"
+                                value={hoursToCompare}
+                                 ampm={true}
+                                 minutesStep={30}
+                                 onChange={(newValue) =>
+                                   {
+                                     console.log(newValue)
+                                     setHoursToCompare(newValue)
+                                   }
+                                 }
+                                 renderInput={(params) => <TextField {...params} />}
                             />
                     </LocalizationProvider>
                 </Box>

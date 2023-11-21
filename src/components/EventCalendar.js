@@ -51,8 +51,29 @@ const initialDatePickerEventFormData = {
         description: "Test1",
         todoId: generateID(),
         allDay: false,
-        start: new Date("November 19, 2023 11:13:00"),
-        end: new Date("November 23, 2023 11:13:00")
+        start: new Date("November 25, 2023 08:00:00"),
+        end: new Date("November 25, 2023 11:00:00")
+    },
+    {
+        description: "Test2",
+        todoId: generateID(),
+        allDay: false,
+        start: new Date("November 25, 2023 12:00:00"),
+        end: new Date("November 25, 2023 13:00:00")
+    },
+    {
+        description: "Test3",
+        todoId: generateID(),
+        allDay: false,
+        start: new Date("November 25, 2023 13:00:00"),
+        end: new Date("November 25, 2023 15:00:00")
+    },
+    {
+        description: "Test4",
+        todoId: generateID(),
+        allDay: false,
+        start: new Date("November 25, 2023 18:00:00"),
+        end: new Date("November 25, 2023 21:00:00")
     }
   ]
 
@@ -63,6 +84,7 @@ export const EventCalendar = () => {
     const [openTodoModal, setOpenTodoModal] = useState(false)
     const [openFindSlot, setOpenFindSlot] = useState(false)
     const [amountOfHours, setAmountOfHours] = useState(1)
+    const [hoursToCompare, setHoursToCompare] = useState("")
 
     const [currentEvent, setCurrentEvent] = useState({
         _id: null,
@@ -205,7 +227,10 @@ export const EventCalendar = () => {
                     />
                     <FindSlotModal 
                     amountOfHours={amountOfHours}
+                    setAmountOfHours={setAmountOfHours}
                     open={openFindSlot}
+                    hoursToCompare={hoursToCompare}
+                    setHoursToCompare={setHoursToCompare}
                     handleClose={() => setOpenFindSlot(false)}
                     />
                     <Divider style={{margin: 10}} />
