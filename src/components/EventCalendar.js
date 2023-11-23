@@ -244,6 +244,8 @@ export const EventCalendar = () => {
                     components={{EventInfo}}
                     endAccessor="end"
                     defaultView="week"
+                    min={new Date(2023, 10, 0, 8, 0, 0)}
+                    max={new Date(2023, 10, 0, 20, 0, 0)}
                     eventPropGetter={(event) => {
                         const hasTodo = todos.find((todo) => todo._id === event.todoId)
                         return {

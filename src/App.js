@@ -1,10 +1,12 @@
 import './App.css';
 import {EventCalendar} from './components/EventCalendar'
+import {Calendars} from './components/Calendars'
 
 function App() {
   return (
     <div className="App">
-        <EventCalendar />
+        {/* <EventCalendar /> */}
+        <Calendars />
     </div>
   );
 }
