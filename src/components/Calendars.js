@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import calendars from '../data/calendars'
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -42,12 +44,18 @@ const calendarData = [
 ]
 
 export const Calendars = () => {
+    const navigate = useNavigate();
+
+    const navigateToCalendar = (id) => {
+      // 👇️ navigate to /contacts
+      navigate(`/calendar/${id}`);
+    };
   return (
     <Container maxWidth="lg" maxHeight="lg" sx={{ paddingTop: 8}}>
         <Box sx={{ width: 1 }}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={6}>
             {
-                calendarData.map((calendar, index) => {
+                calendars.map((calendar, index) => {
                     return <Box gridColumn="span 4">
                         <Item>
                             <Card>
@@ -62,7 +70,7 @@ export const Calendars = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{display: "flex", justifyContent: "center"}}>
-                                <Button size="small">See Calendar</Button>
+                                <Button onClick={navigateToCalendar(calendar.calendarID)} size="small">See Calendar</Button>
                             </CardActions>
                             </Card>
                         </Item>

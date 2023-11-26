@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Container, Divider } from "@mui/material"
+import { useParams } from "react-router-dom";
 
 import { Calendar, dateFnsLocalizer } from "react-big-calendar"
 
@@ -17,6 +18,10 @@ import EventInfoModal from "./EventInfoModal"
 import { FindSlotModal } from "./FindSlotModal"
 import { AddTodoModal } from "./AddTodoModal"
 import {AddDatePickerEventModal} from "./AddDatePickerEventModal"
+
+import calendars from "../data/calendars"
+import eventsData from '../data/events'
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const locales = {
     "en-US": enUS
@@ -85,6 +90,23 @@ export const EventCalendar = () => {
     const [openFindSlot, setOpenFindSlot] = useState(false)
     const [amountOfHours, setAmountOfHours] = useState(1)
     const [hoursToCompare, setHoursToCompare] = useState("")
+    const [calendar, setCalendar] = useState(null)
+
+    const  {calendarID} = useParams();
+    //gets calendar data upon clicking on this calendar
+
+    async function fetchData () {
+        const res =  calendars.filter(calendar => {
+            return calendarID === calendar.calendarID;
+          });
+        setCalendar(res)
+    }
+
+    useEffect(() => {
+        // Perform data fetching based on productId
+        fetchData().then(test => console.log("test"))
+      }, []);
+
 
     const [currentEvent, setCurrentEvent] = useState({
         _id: null,
@@ -95,6 +117,7 @@ export const EventCalendar = () => {
     const [eventInfoModal, setEventInfoModal] = useState(false)
     
     const [events, setEvents] = useState(testData)
+
     const [todos, setTodos] = useState([])
     
     const [eventFormData, setEventFormData] = useState(initialEventFormState)
@@ -234,31 +257,37 @@ export const EventCalendar = () => {
                     handleClose={() => setOpenFindSlot(false)}
                     />
                     <Divider style={{margin: 10}} />
-                    <Calendar 
-                    localizer={localizer}
-                    events={events}
-                    onSelectEvent={handleSelectEvent}
-                    onSelectSlot={handleSelectSlot}
-                    selectable
-                    startAccessor="start"
-                    components={{EventInfo}}
-                    endAccessor="end"
-                    defaultView="week"
-                    min={new Date(2023, 10, 0, 8, 0, 0)}
-                    max={new Date(2023, 10, 0, 20, 0, 0)}
-                    eventPropGetter={(event) => {
+                    {
+                        events ?
+                        <Calendar 
+                        localizer={localizer}
+                        events={events}
+                        onSelectEvent={handleSelectEvent}
+                        onSelectSlot={handleSelectSlot}
+                        selectable
+                        startAccessor="start"
+                        components={{EventInfo}}
+                        endAccessor="end"
+                        defaultView="week"
+                        min={new Date(2023, 10, 0, 8, 0, 0)}
+                        max={new Date(2023, 10, 0, 20, 0, 0)}
+                        eventPropGetter={(event) => {
                         const hasTodo = todos.find((todo) => todo._id === event.todoId)
-                        return {
-                            style: {
+                            return {
+                                style: {
                                 backgroundColor: hasTodo ? hasTodo.color : "#b64fc8",
                                 borderColor: hasTodo ? hasTodo.color : "#b64fc8"
                             }
                         }
-                    }}
-                    style={{
+                        }}
+                        style={{
                         height: 900,
-                      }}
-                    />
+                    }}
+                    /> :
+                    <h1>...loading</h1>
+                    }
+
+
                 </CardContent>
             </Card>
         </Container>

@@ -1,4 +1,4 @@
-export default calendars = [
+const calendars = [
     {
         calendarID: "CAL01",
         calendarName: "Calendar01",
@@ -50,3 +50,5 @@ export default calendars = [
         ]
     }
 ]
+
+export default calendars

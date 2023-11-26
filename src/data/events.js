@@ -1,4 +1,4 @@
-export const events = [
+const eventsData = [
     {
         description: "Test1",
         todoId: "EVNT01",
@@ -105,3 +105,5 @@ export const events = [
         end: new Date("November 28, 2023 21:00:00")
     },
   ]
+
+  export default eventsData
