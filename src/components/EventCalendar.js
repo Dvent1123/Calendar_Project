@@ -21,7 +21,6 @@ import {AddDatePickerEventModal} from "./AddDatePickerEventModal"
 
 import calendars from "../data/calendars"
 import eventsData from '../data/events'
-import { ConstructionOutlined } from "@mui/icons-material";
 
 const locales = {
     "en-US": enUS
@@ -102,11 +101,24 @@ export const EventCalendar = () => {
         setCalendar(res)
     }
 
+    async function fetchEvents () {
+         const res = eventsData.filter(({todoId}) => calendar[0].eventIDs.includes(todoId))
+        console.log(res)
+        setEvents(res)
+    }
+
     useEffect(() => {
         // Perform data fetching based on productId
-        fetchData().then(test => console.log("test"))
+        //may need to remove this to add as a depedency
+        fetchData()
       }, []);
 
+    useEffect(() => {
+        //may need to remove this to add as a depedency
+        if(calendar) {
+            fetchEvents()
+        }
+    }, [calendar])
 
     const [currentEvent, setCurrentEvent] = useState({
         _id: null,
