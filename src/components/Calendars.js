@@ -46,10 +46,10 @@ const calendarData = [
 export const Calendars = () => {
     const navigate = useNavigate();
 
-    const navigateToCalendar = (id) => {
-      // 👇️ navigate to /contacts
-      navigate(`/calendar/${id}`);
-    };
+      const navigateToCalendar = (id) => {
+        navigate(`/calendar/${id}`);
+      };
+
   return (
     <Container maxWidth="lg" maxHeight="lg" sx={{ paddingTop: 8}}>
         <Box sx={{ width: 1 }}>
@@ -70,7 +70,7 @@ export const Calendars = () => {
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{display: "flex", justifyContent: "center"}}>
-                                <Button onClick={navigateToCalendar(calendar.calendarID)} size="small">See Calendar</Button>
+                                <Button onClick={() => navigateToCalendar(calendar.calendarID)} size="small">See Calendar</Button>
                             </CardActions>
                             </Card>
                         </Item>
