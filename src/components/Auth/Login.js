@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import users from '../../data/users'
 
 function Copyright(props) {
   return (
@@ -31,14 +32,33 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [userData, setUserData] = useState()
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const password = data.get('password')
+    const email = data.get('email')
+
+    // send the username and password to the server
+    const response = (email, password) => {
+      //looks for user
+      //returns user data if user is found
+      //sets user data
+      setUser(response.data)
+      // store the user in localStorage
+      localStorage.setItem('user', response.data)
+    }
   };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -63,10 +83,10 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
