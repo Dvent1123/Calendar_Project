@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react"
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -38,18 +39,36 @@ export default function Login() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const password = data.get('password')
-    const email = data.get('email')
+    const username = data.get('username')
 
-    // send the username and password to the server
-    const response = (email, password) => {
-      //looks for user
-      //returns user data if user is found
-      //sets user data
-      setUser(response.data)
-      // store the user in localStorage
-      localStorage.setItem('user', response.data)
-    }
+      const checkUser = (password,username) => {
+        const usercheck = users.find(user => (user.username === username && user.password === password));
+        if(usercheck) {
+               //sets user data
+          setUserData(usercheck)
+          // store the user in localStorage
+          localStorage.setItem('user', usercheck)
+          console.log("Login successful");
+        }else {
+          console.log("Wrong password or username");
+        }
+        // console.log(uname);
+        console.log(usercheck);
+     }
+
+     checkUser(password, username)
   };
+
+  // const checkUser = (password,username) => {
+  //   const usercheck = users.find(user => (user.username === username && user.password === password));
+  //   if(usercheck) {
+  //     console.log("Login successful");
+  //   }else {
+  //     console.log("Wrong password or username");
+  //   }
+  //   // console.log(uname);
+  //   console.log(usercheck);
+  // }
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();

@@ -6,7 +6,7 @@ const users = [
     calendarIDs: [
         "CAL01"
     ]
-}
+},
 {
     userID: 2,
     username: "Test Name2",
