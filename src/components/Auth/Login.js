@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,8 +32,8 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Login() {
-  const [userData, setUserData] = useState()
+export default function Login({userDataApp}) {
+  const [userData, setUserData] = useState(localStorage.getItem("user") ?? null)
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -47,7 +47,7 @@ export default function Login() {
                //sets user data
           setUserData(usercheck)
           // store the user in localStorage
-          localStorage.setItem('user', usercheck)
+          localStorage.setItem('user', usercheck.username)
           console.log("Login successful");
         }else {
           console.log("Wrong password or username");
@@ -59,6 +59,14 @@ export default function Login() {
      checkUser(password, username)
   };
 
+  // useEffect(() => {
+  //   const loggedInUser = localStorage.getItem("user");
+  //   console.log(loggedInUser.username)
+  //   if (loggedInUser) {
+  //     //const foundUser = JSON.parse(loggedInUser);
+  //     setUserData(loggedInUser);
+  //   }
+  // }, []);
   // const checkUser = (password,username) => {
   //   const usercheck = users.find(user => (user.username === username && user.password === password));
   //   if(usercheck) {
@@ -78,6 +86,9 @@ export default function Login() {
   //     password: data.get('password'),
   //   });
   // };
+  if (userData) {
+    return <div>{userData} is loggged in</div>;
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>

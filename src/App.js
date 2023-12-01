@@ -7,9 +7,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const [token, setToken] = useState();
+  const [user, setUser] = useState(localStorage.getItem("user") ?? null)
 
-  if(!token) {
-    return <Login setToken={setToken} />
+  if(!user) {
+    return <Login userDataApp={user} />
+  } 
+  if(user){
+      return <div>{user} is loggged in</div>;
   }
   
   return (
