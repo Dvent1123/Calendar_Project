@@ -7,26 +7,25 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   const [token, setToken] = useState();
-  const [user, setUser] = useState(localStorage.getItem("user") ?? null)
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
 
   if(!user) {
     return <Login userDataApp={user} />
   } 
   if(user){
-      return <div>{user} is loggged in</div>;
+      return <div>{user.username} is loggged in</div>;
   }
   
   return (
     <div className="App">
           <div className="wrapper">
             <h1>Application</h1>
-            <Router>
               <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/calendar" element={<Calendars />} />
                 <Route path="/calendar/:calendarID" element={<EventCalendar />} />
               </Routes>
-            </Router>
+
           </div>
     </div>
   );

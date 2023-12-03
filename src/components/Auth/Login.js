@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from "react"
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -33,7 +34,14 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login({userDataApp}) {
-  const [userData, setUserData] = useState(localStorage.getItem("user") ?? null)
+  //const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
+  const [userData, setUserData] = useState()
+
+  const navigate = useNavigate();
+
+  const navigateToCalendar = (id) => {
+    navigate('/calendar');
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -47,7 +55,7 @@ export default function Login({userDataApp}) {
                //sets user data
           setUserData(usercheck)
           // store the user in localStorage
-          localStorage.setItem('user', usercheck.username)
+          localStorage.setItem('user', JSON.stringify(usercheck))
           console.log("Login successful");
         }else {
           console.log("Wrong password or username");
@@ -59,36 +67,10 @@ export default function Login({userDataApp}) {
      checkUser(password, username)
   };
 
-  // useEffect(() => {
-  //   const loggedInUser = localStorage.getItem("user");
-  //   console.log(loggedInUser.username)
-  //   if (loggedInUser) {
-  //     //const foundUser = JSON.parse(loggedInUser);
-  //     setUserData(loggedInUser);
-  //   }
-  // }, []);
-  // const checkUser = (password,username) => {
-  //   const usercheck = users.find(user => (user.username === username && user.password === password));
-  //   if(usercheck) {
-  //     console.log("Login successful");
-  //   }else {
-  //     console.log("Wrong password or username");
-  //   }
-  //   // console.log(uname);
-  //   console.log(usercheck);
+ 
+  // if (userData !== null) {
+  //   navigateToCalendar(userData.userID)
   // }
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
-  if (userData) {
-    return <div>{userData} is loggged in</div>;
-  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
