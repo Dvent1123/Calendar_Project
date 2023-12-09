@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react"
 import { Box, Button, ButtonGroup, Card, CardContent, CardHeader, Container, Divider } from "@mui/material"
 import { useParams } from "react-router-dom";
-
 import { Calendar, dateFnsLocalizer } from "react-big-calendar"
-
 import format from "date-fns/format"
 import parse from "date-fns/parse"
 import startOfWeek from "date-fns/startOfWeek"
@@ -83,6 +81,8 @@ const initialDatePickerEventFormData = {
 
 
 export const EventCalendar = () => {
+    const  {calendarID} = useParams();
+
     const [openSlot, setOpenSlot] = useState(false)
     const [openDatepickerModal, setOpenDatepickerModal] = useState(false)
     const [openTodoModal, setOpenTodoModal] = useState(false)
@@ -90,9 +90,11 @@ export const EventCalendar = () => {
     const [amountOfHours, setAmountOfHours] = useState(1)
     const [hoursToCompare, setHoursToCompare] = useState("")
     const [calendar, setCalendar] = useState(null)
-
-    const  {calendarID} = useParams();
-    //gets calendar data upon clicking on this calendar
+    const [eventInfoModal, setEventInfoModal] = useState(false)
+    const [events, setEvents] = useState(testData)
+    const [todos, setTodos] = useState([])
+    const [eventFormData, setEventFormData] = useState(initialEventFormState)
+    const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
 
     async function fetchData () {
         const res =  calendars.filter(calendar => {
@@ -125,16 +127,6 @@ export const EventCalendar = () => {
         description: "",
         todoId: undefined
     })
-    
-    const [eventInfoModal, setEventInfoModal] = useState(false)
-    
-    const [events, setEvents] = useState(testData)
-
-    const [todos, setTodos] = useState([])
-    
-    const [eventFormData, setEventFormData] = useState(initialEventFormState)
-    
-    const [datePickerEventFormData, setDatePickerEventFormData] = useState(initialDatePickerEventFormData)
 
     const onDeleteEvent = () => {
         setEvents(() => [...events].filter((e) => e._id !== currentEvent._id))

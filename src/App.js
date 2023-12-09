@@ -3,10 +3,9 @@ import { useState, useEffect  } from "react"
 import {EventCalendar} from './components/EventCalendar'
 import {Calendars} from './components/Calendars'
 import Login from './components/Auth/Login'
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 function App() {
-  const [token, setToken] = useState();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
 
   const navigate = useNavigate();

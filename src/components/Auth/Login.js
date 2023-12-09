@@ -67,11 +67,6 @@ export default function Login({userDataApp}) {
      checkUser(password, username)
   };
 
- 
-  // if (userData !== null) {
-  //   navigateToCalendar(userData.userID)
-  // }
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">

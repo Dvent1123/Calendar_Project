@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import calendars from '../data/calendars'
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,28 +20,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const calendarData = [
-    {
-        id: 1,
-        name: "Calendar1",
-        color: "blue"
-    },
-    {
-        id: 2,
-        name: "Calendar2",
-        color: "red"
-    }
-    ,    {
-        id: 3,
-        name: "Calendar3",
-        color: "green"
-    }
-    ,    {
-        id: 4,
-        name: "Calendar4",
-        color: "purple"
-    }
-]
 
 export const Calendars = () => {
     const navigate = useNavigate();

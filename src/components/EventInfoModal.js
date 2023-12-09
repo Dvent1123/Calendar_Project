@@ -1,5 +1,4 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Box, Typography } from "@mui/material"
-// import { IEventInfo } from "./EventCalendar"
 
 const EventInfoModal = ({open, handleClose, onDeleteEvent, currentEvent}) => {
     const onClose = () => {
