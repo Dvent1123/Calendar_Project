@@ -34,7 +34,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  //const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
   const [userData, setUserData] = useState()
 
   const navigate = useNavigate();
@@ -42,12 +41,6 @@ export default function Login() {
   const navigateToCalendar = (id) => {
     navigate(`/calendar/${id}`);
   };
-
-  // useEffect(() => {
-  //   if(userData) {
-  //     navigateToCalendar()
-  //   }
-  // }, [userData])
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -63,12 +56,10 @@ export default function Login() {
           // store the user in localStorage
           localStorage.setItem('user', JSON.stringify(usercheck))
           navigateToCalendar(usercheck.userID)
-          //setUser(usercheck)
           console.log("Login successful");
         }else {
           console.log("Wrong password or username");
         }
-        // console.log(uname);
         console.log(usercheck);
      }
 

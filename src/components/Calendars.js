@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useEffect } from "react"
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -22,12 +23,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 export const Calendars = () => {
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
+    
     const navigate = useNavigate();
 
       const navigateToCalendar = (id) => {
         navigate(`/calendar/user/${id}`);
       };
-
+    //console.log(user.calendarIDs)
+    //TODO
+    //Get calendar IDs from user and use filter with map to render the users maps
   return (
     <Container maxWidth="lg" maxheight="lg" sx={{ paddingTop: 8}}>
         <Box sx={{ width: 1 }}>
