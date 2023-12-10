@@ -39,9 +39,15 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const navigateToCalendar = (id) => {
+  const navigateToCalendar = () => {
     navigate('/calendar');
   };
+
+  useEffect(() => {
+    if(userData) {
+      navigateToCalendar()
+    }
+  }, [userData])
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -56,6 +62,7 @@ export default function Login() {
           setUserData(usercheck)
           // store the user in localStorage
           localStorage.setItem('user', JSON.stringify(usercheck))
+          //setUser(usercheck)
           console.log("Login successful");
         }else {
           console.log("Wrong password or username");
