@@ -25,7 +25,7 @@ export const Calendars = () => {
     const navigate = useNavigate();
 
       const navigateToCalendar = (id) => {
-        navigate(`/calendar/${id}`);
+        navigate(`/calendar/user/${id}`);
       };
 
   return (

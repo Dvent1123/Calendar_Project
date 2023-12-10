@@ -11,8 +11,8 @@ function App() {
   const navigate = useNavigate();
 
 
-  const navigateToCalendar = () => {
-    navigate('/calendar');
+  const navigateToCalendar = (id) => {
+    navigate(`/calendar/${id}`);
   };
 
   const navigateToLogin = () => {
@@ -24,7 +24,7 @@ function App() {
       navigateToLogin()    
     } 
     if(user){
-      navigateToCalendar()
+      navigateToCalendar(user.userID)
     }
   }, [])
 
@@ -36,8 +36,8 @@ function App() {
             <h1>Application</h1>
               <Routes>
                 <Route path="/" element={<Login />} />
-                <Route path="/calendar" element={<Calendars />} />
-                <Route path="/calendar/:calendarID" element={<EventCalendar />} />
+                <Route path="/calendar/:userID" element={<Calendars />} />
+                <Route path="/calendar/user/:calendarID" element={<EventCalendar />} />
               </Routes>
 
           </div>

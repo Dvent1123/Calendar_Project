@@ -39,15 +39,15 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const navigateToCalendar = () => {
-    navigate('/calendar');
+  const navigateToCalendar = (id) => {
+    navigate(`/calendar/${id}`);
   };
 
-  useEffect(() => {
-    if(userData) {
-      navigateToCalendar()
-    }
-  }, [userData])
+  // useEffect(() => {
+  //   if(userData) {
+  //     navigateToCalendar()
+  //   }
+  // }, [userData])
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -62,6 +62,7 @@ export default function Login() {
           setUserData(usercheck)
           // store the user in localStorage
           localStorage.setItem('user', JSON.stringify(usercheck))
+          navigateToCalendar(usercheck.userID)
           //setUser(usercheck)
           console.log("Login successful");
         }else {
