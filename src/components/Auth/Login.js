@@ -33,7 +33,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function Login({userDataApp}) {
+export default function Login() {
   //const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")) ?? null)
   const [userData, setUserData] = useState()
 

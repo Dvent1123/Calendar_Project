@@ -29,12 +29,12 @@ export const Calendars = () => {
       };
 
   return (
-    <Container maxWidth="lg" maxHeight="lg" sx={{ paddingTop: 8}}>
+    <Container maxWidth="lg" maxheight="lg" sx={{ paddingTop: 8}}>
         <Box sx={{ width: 1 }}>
         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={6}>
             {
                 calendars.map((calendar, index) => {
-                    return <Box gridColumn="span 4">
+                    return <Box key={index} gridColumn="span 4">
                         <Item>
                             <Card>
                             <CalendarMonthOutlinedIcon sx={{ color: calendar.color, fontSize: 80}}/>

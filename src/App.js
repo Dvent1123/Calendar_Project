@@ -35,7 +35,7 @@ function App() {
           <div className="wrapper">
             <h1>Application</h1>
               <Routes>
-                <Route path="*" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/calendar" element={<Calendars />} />
                 <Route path="/calendar/:calendarID" element={<EventCalendar />} />
               </Routes>
